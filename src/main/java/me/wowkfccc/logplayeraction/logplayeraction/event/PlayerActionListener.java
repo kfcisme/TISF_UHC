@@ -285,6 +285,7 @@ public class PlayerActionListener implements Listener {
     }
 
     public static void ResetCounters(UUID playerId) {
+        Logplayeraction.getInstance().getLogger().info("Resetting counters for player: " + playerId);
         onAsyncPlayerChat.resetCounters(playerId);
         onBlockPlace.resetCounters(playerId);
         onBlockDamage.resetCounters(playerId);

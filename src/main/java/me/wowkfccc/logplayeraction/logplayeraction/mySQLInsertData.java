@@ -52,18 +52,28 @@ public class mySQLInsertData {
                 + "`ChunkLoad` INT NOT NULL DEFAULT 0, "
                 + "PRIMARY KEY (`record_time`)"
                 + ")";
-        //plugin.getLogger().info("MySQL connection pool closed");
+        plugin.getLogger().info("Creating table: " + tableName);
         try (Connection conn = mySQL.getConnection();
-             Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
+//             Statement stmt = conn.createStatement()) {
+//            stmt.executeUpdate(sql);
+//        }
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.execute();
+            plugin.getLogger().info("[logplayeraction] Creating table: " + tableName);}
+        catch (SQLException e) {
+            plugin.getLogger().warning("[logplayeraction] 建表失敗：" + e.getMessage());
         }
     }
 
-    public void insertEventCounts(String tableName, PlayerActionListener.EventCounts c) {
-
-        if (!mySQL.isConnected()) return;
+    public void insertEventCounts(UUID uuid, PlayerActionListener.EventCounts c) {
+        String tableName = "player_" + uuid.toString().replace("-", "");
+//        if (!mySQL.isConnected()) return;
+//        createPlayerTable(tableName);
+        plugin.getLogger().info("⚙ insertEventCounts(): 表格=" + tableName + "，counts=" + c);
+        if (!mySQL.isConnected()) {
+            plugin.getLogger().warning("⚠ MySQL 未連線，跳過插入");
+            return;
+        }
         createPlayerTable(tableName);
 
         String sql = "INSERT INTO `" + tableName + "` ("
@@ -73,7 +83,7 @@ public class mySQLInsertData {
                 + "player_death, item_drop, exp_change, interact, level_change, quit, "
                 + "respawn, teleport, ChunkLoad"
                 + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        plugin.getLogger().info("database insert success");
+//        plugin.getLogger().info("database insert success");
         try (Connection conn = mySQL.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -104,13 +114,21 @@ public class mySQLInsertData {
             ps.setInt(25, c.respawn);
             ps.setInt(26, c.teleport);
             ps.setInt(27, c.chunkLoadCounts);
-            plugin.getLogger().info("database insert success");
-            ps.executeUpdate();
+//            plugin.getLogger().info("database insert success");
+//            ps.executeUpdate();
+//            UUID playerId = UUID.fromString(tableName);
+//            PlayerActionListener.ResetCounters(uuid);
+            int rows = ps.executeUpdate();  // 真正去執行
+                plugin.getLogger().info("✅ 資料庫插入成功，重置玩家計數器：" + uuid);
+                // 用正確的變數呼叫
+                PlayerActionListener.ResetCounters(uuid);
+
         } catch (SQLException e) {
+            plugin.getLogger().severe("❌ insertEventCounts SQLException：" + e.getMessage());
             e.printStackTrace();
         }
 
-        UUID playerId = UUID.fromString(tableName);
-        PlayerActionListener.ResetCounters(playerId);
+
+
     }
 }

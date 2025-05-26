@@ -1,0 +1,17 @@
+name: logplayeraction
+version: '1..1.0'
+main: me.wowkfccc.logplayeraction.logplayeraction.Logplayeraction
+api-version: '1.18'
+commands:
+  logplayeraction:
+    description: 主指令 (reload / time_reset)
+    usage: /<command> [reload|time_reset]
+permissions:
+  logplayeraction.reload:
+    description: 重新載入設定
+    default: op
+  logplayeraction.time_reset:
+    description: 重置玩家計時器
+    default: op
+softdepend:
+  - Essentials
