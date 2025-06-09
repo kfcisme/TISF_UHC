@@ -43,6 +43,7 @@ public class PlayerActionListener implements Listener {
     public int respawnCounts = 0;
     public int teleportCounts = 0;
     public int chunkLoadCounts = 0;
+    public int redstoneCounts = 0;
 
     // 每种事件的计数 Map
 //    private final Map<UUID, Integer> pickupCounts          = new HashMap<>();
@@ -224,7 +225,8 @@ public class PlayerActionListener implements Listener {
                 quitCounts = onPlayerQuit.SendInsertData(playerId),
                 respawnCounts = onPlayerRespawn.SendInsertData(playerId),
                 teleportCounts = onPlayerTeleport.SendInsertData(playerId),
-                chunkLoadCounts = PlayerChunkLoadListener.SendInsertData(playerId)
+                chunkLoadCounts = PlayerChunkLoadListener.SendInsertData(playerId),
+                redstoneCounts = onRedstoneTracker.SendInsertData(playerId)
 //                pickupCounts.getOrDefault(playerId, 0),
 //                blockBreakCounts.getOrDefault(playerId, 0),
 //                tntPrimeCounts.getOrDefault(playerId, 0),
@@ -312,7 +314,7 @@ public class PlayerActionListener implements Listener {
         onPlayerTeleport.resetCounters(playerId);
         onTNTPrime.resetCounters(playerId);
         PlayerChunkLoadListener.resetChunkLoadCounts(playerId);
-
+        onRedstoneTracker.resetCounters(playerId);
     }
 
     public static class EventCounts {
@@ -343,6 +345,7 @@ public class PlayerActionListener implements Listener {
         public final int respawn;
         public final int teleport;
         public final int chunkLoadCounts;
+        public final int redstoneCounts;
 
         public EventCounts(
                 int pickup,
@@ -371,7 +374,8 @@ public class PlayerActionListener implements Listener {
                 int quit,
                 int respawn,
                 int teleport,
-                int chunkLoadCounts
+                int chunkLoadCounts,
+                int redstoneCounts
         ) {
             this.pickup = pickup;
             this.blockBreak = blockBreak;
@@ -400,6 +404,7 @@ public class PlayerActionListener implements Listener {
             this.respawn = respawn;
             this.teleport = teleport;
             this.chunkLoadCounts = chunkLoadCounts;
+            this.redstoneCounts = redstoneCounts;
         }
     }
 }

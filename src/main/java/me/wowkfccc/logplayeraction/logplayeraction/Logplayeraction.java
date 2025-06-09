@@ -162,6 +162,7 @@ public final class Logplayeraction extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new onPlayerRespawn(this), this);
         this.getServer().getPluginManager().registerEvents(new onPlayerTeleport(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerChunkLoadListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new onRedstoneTracker(this), this);
 
     }
 
