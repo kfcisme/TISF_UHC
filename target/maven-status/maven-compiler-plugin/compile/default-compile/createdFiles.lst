@@ -1,4 +1,5 @@
 me\wowkfccc\logplayeraction\logplayeraction\event\PlayerChunkLoadListener.class
+me\wowkfccc\logplayeraction\logplayeraction\event\onRedstoneTracker.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onPlayerDeath.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onInventoryOpen.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onPlayerBucketFill.class
