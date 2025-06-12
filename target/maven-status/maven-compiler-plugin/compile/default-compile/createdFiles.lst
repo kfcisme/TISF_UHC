@@ -22,6 +22,7 @@ me\wowkfccc\logplayeraction\logplayeraction\event\onAsyncPlayerChat.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onBlockPlace.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onEntityDamageByEntity.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onEntityPickupItem.class
+me\wowkfccc\logplayeraction\logplayeraction\event\plugin\onEssentialsAFK.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onCraftItem.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onPlayerRespawn.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onInventoryClose.class

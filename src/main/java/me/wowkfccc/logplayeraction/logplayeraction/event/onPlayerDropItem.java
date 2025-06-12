@@ -45,7 +45,7 @@ public class onPlayerDropItem implements Listener {
         playerPlayerDropItemCount.put(playerId, playerPlayerDropItemCount.getOrDefault(playerId, 0) + 1);
 
         // Log the current block break count for the player
-        Bukkit.getLogger().info("Player " + player.getName() + " PlayerDropItem count: " + playerPlayerDropItemCount.get(playerId));
+       // Bukkit.getLogger().info("Player " + player.getName() + " PlayerDropItem count: " + playerPlayerDropItemCount.get(playerId));
     }
 
     public static int SendInsertData(UUID playerId){
@@ -58,12 +58,12 @@ public class onPlayerDropItem implements Listener {
         for (Map.Entry<UUID, Integer> entry : playerPlayerDropItemCount.entrySet()) {
             //Player player = Bukkit.getPlayer(entry.getKey());
             if (player != null) {
-                Bukkit.getLogger().info("Player " + player.getName() + " total PlayerDropItem count: " + entry.getValue());
+         //       Bukkit.getLogger().info("Player " + player.getName() + " total PlayerDropItem count: " + entry.getValue());
             }
         }
 
         // Clear the counters
         playerPlayerDropItemCount.remove(playerId);
-        Bukkit.getLogger().info("All player PlayerDropItem counters have been reset.");
+    //    Bukkit.getLogger().info("All player PlayerDropItem counters have been reset.");
     }
 }

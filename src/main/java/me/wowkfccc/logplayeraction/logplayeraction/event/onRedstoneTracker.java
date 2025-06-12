@@ -92,7 +92,7 @@ public class onRedstoneTracker implements Listener{
 
         if (redstoneMaterials.contains(event.getBlockPlaced().getType())) {
             playerRedstoneCount.put(playerId, playerRedstoneCount.getOrDefault(playerId, 0) + 1);
-            Bukkit.getLogger().info("Player " + player.getName() + " placed a redstone block. Total count: " + playerRedstoneCount.get(playerId));
+           // Bukkit.getLogger().info("Player " + player.getName() + " placed a redstone block. Total count: " + playerRedstoneCount.get(playerId));
         }
     }
 
@@ -105,11 +105,11 @@ public class onRedstoneTracker implements Listener{
         for (Map.Entry<UUID, Integer> entry : playerRedstoneCount.entrySet()) {
             //Player player = Bukkit.getPlayer(entry.getKey());
             if (player != null) {
-                Bukkit.getLogger().info("Player " + player.getName() + " total redstone block count: " + entry.getValue());
+             //   Bukkit.getLogger().info("Player " + player.getName() + " total redstone block count: " + entry.getValue());
             }
         }
         // Clear the counters
         playerRedstoneCount.remove(playerId);
-        Bukkit.getLogger().info("All player redstone block counters have been reset.");
+        // Bukkit.getLogger().info("All player redstone block counters have been reset.");
     }
 }

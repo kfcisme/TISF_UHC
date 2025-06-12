@@ -9,7 +9,7 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.block.*;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.*;
-
+import me.wowkfccc.logplayeraction.logplayeraction.event.plugin.onEssentialsAFK;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -44,6 +44,7 @@ public class PlayerActionListener implements Listener {
     public int teleportCounts = 0;
     public int chunkLoadCounts = 0;
     public int redstoneCounts = 0;
+    public long afktime = 0L;
 
     // 每种事件的计数 Map
 //    private final Map<UUID, Integer> pickupCounts          = new HashMap<>();
@@ -226,7 +227,8 @@ public class PlayerActionListener implements Listener {
                 respawnCounts = onPlayerRespawn.SendInsertData(playerId),
                 teleportCounts = onPlayerTeleport.SendInsertData(playerId),
                 chunkLoadCounts = PlayerChunkLoadListener.SendInsertData(playerId),
-                redstoneCounts = onRedstoneTracker.SendInsertData(playerId)
+                redstoneCounts = onRedstoneTracker.SendInsertData(playerId),
+                afktime = onEssentialsAFK.SendInsertData(playerId)
 //                pickupCounts.getOrDefault(playerId, 0),
 //                blockBreakCounts.getOrDefault(playerId, 0),
 //                tntPrimeCounts.getOrDefault(playerId, 0),
@@ -315,6 +317,7 @@ public class PlayerActionListener implements Listener {
         onTNTPrime.resetCounters(playerId);
         PlayerChunkLoadListener.resetChunkLoadCounts(playerId);
         onRedstoneTracker.resetCounters(playerId);
+        onEssentialsAFK.resetCounters(playerId);
     }
 
     public static class EventCounts {
@@ -346,6 +349,7 @@ public class PlayerActionListener implements Listener {
         public final int teleport;
         public final int chunkLoadCounts;
         public final int redstoneCounts;
+        public final long afktime;
 
         public EventCounts(
                 int pickup,
@@ -375,7 +379,8 @@ public class PlayerActionListener implements Listener {
                 int respawn,
                 int teleport,
                 int chunkLoadCounts,
-                int redstoneCounts
+                int redstoneCounts,
+                long afktime
         ) {
             this.pickup = pickup;
             this.blockBreak = blockBreak;
@@ -405,6 +410,7 @@ public class PlayerActionListener implements Listener {
             this.teleport = teleport;
             this.chunkLoadCounts = chunkLoadCounts;
             this.redstoneCounts = redstoneCounts;
+            this.afktime = afktime;
         }
     }
 }

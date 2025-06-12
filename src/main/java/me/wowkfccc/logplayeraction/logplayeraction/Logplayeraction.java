@@ -4,10 +4,12 @@ import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.api.Economy;
 import me.wowkfccc.logplayeraction.logplayeraction.event.plugin.API.EssentialsHook;
 //import me.wowkfccc.logplayeraction.logplayeraction.event.plugin.onEssentialsAFK;
+import me.wowkfccc.logplayeraction.logplayeraction.event.plugin.onEssentialsAFK;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.wowkfccc.logplayeraction.logplayeraction.event.*;
 import me.wowkfccc.logplayeraction.logplayeraction.commandmanager;
+
 
 public final class Logplayeraction extends JavaPlugin {
     private boolean databaseEnable;
@@ -86,26 +88,27 @@ public final class Logplayeraction extends JavaPlugin {
 //        } else {
 //            getLogger().warning("Essentials not found or disabled");
 //        }}
-        if (getConfig().getBoolean("Enable.Balance", false)) {
-            try {
-                essentialsHook = new EssentialsHook(this);
-                getLogger().info("✔ 已透過反射 Hook Essentials v" +
-                        essentialsHook.getClass().getPackage().getImplementationVersion());
-            } catch (ClassNotFoundException e) {
-                getLogger().info("Essentials 不存在，跳過經濟整合");
-            } catch (Exception e) {
-                getLogger().warning("Essentials Hook 失敗：" + e.getMessage());
-            }
-        }
+//        if (getConfig().getBoolean("Enable.Balance", false)) {
+//            try {
+//                essentialsHook = new EssentialsHook(this);
+//                getLogger().info("✔ 已透過反射 Hook Essentials v" +
+//                        essentialsHook.getClass().getPackage().getImplementationVersion());
+//            } catch (ClassNotFoundException e) {
+//                getLogger().info("Essentials 不存在，跳過經濟整合");
+//            } catch (Exception e) {
+//                getLogger().warning("Essentials Hook 失敗：" + e.getMessage());
+//            }
+//        }
 
         // AFK 功能同理，只在 essentialsHook != null 時，註冊 onEssentialsAFK
-//        if (getConfig().getBoolean("Enable.AFK", false) && essentialsHook != null) {
-//            getServer().getPluginManager().registerEvents(
-//                    new onEssentialsAFK(this, essentialsHook),
-//                    this
-//            );
-//            getLogger().info("✔ 已註冊 AFK 計數監聽器");
-//        }
+            if (getConfig().getBoolean("Enable.AFK", false) && essentialsHook != null) {
+                getServer().getPluginManager().registerEvents(
+                        new onEssentialsAFK(this, essentialsHook),
+                        this
+                );
+
+                getLogger().info("✔ 已註冊 AFK 計數監聽器");
+            }
 
 //        getServer().getPluginManager().registerEvents(
 //                new PlayerChunkLoadListener(this),
