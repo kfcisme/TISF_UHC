@@ -25,15 +25,6 @@ public class onPlayerDropItem implements Listener {
 
     public onPlayerDropItem(Logplayeraction plugin) {
         this.plugin = plugin;
-
-        // Schedule a task to reset counters periodically
-//        int timer = plugin.getConfig().getInt("database.insert_interval", 3600); // Default to 1 hour
-//        new BukkitRunnable() {
-//            @Override
-//            public void run() {
-//                resetCounters();
-//            }
-//        }.runTaskTimer(plugin, 0L, timer * 20L);
     }
 
     @EventHandler

@@ -18,15 +18,6 @@ public class onAsyncPlayerChat implements Listener {
 
     public onAsyncPlayerChat(Logplayeraction plugin) {
         this.plugin = plugin;
-
-        // Schedule a task to reset counters periodically
-//        int timer = plugin.getConfig().getInt("database.insert_interval", 3600); // Default to 1 hour
-//        new BukkitRunnable() {
-//            @Override
-//            public void run() {
-//                resetCounters();
-//            }
-//        }.runTaskTimer(plugin, 0L, timer * 20L);
     }
 
     @EventHandler
@@ -36,10 +27,7 @@ public class onAsyncPlayerChat implements Listener {
 
         // Increment the player's chat time counter
         playerChatTime.put(playerId, playerChatTime.getOrDefault(playerId, 0) + 1);
-
-        // Log the current chat time for the player
-        //Bukkit.getLogger().info("Player " + player.getName() + " chat time: " + playerChatTime.get(playerId) + " seconds.");
-    }
+   }
 
     public static int SendInsertData(UUID playerId){
         return playerChatTime.getOrDefault(playerId, 0);

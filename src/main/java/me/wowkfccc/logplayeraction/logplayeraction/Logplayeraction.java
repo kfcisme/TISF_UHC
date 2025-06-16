@@ -56,49 +56,11 @@ public final class Logplayeraction extends JavaPlugin {
         getCommand("logplayeraction").setExecutor(cmdMgr);
 
         getLogger().info("Logplayeraction 啟動完成！");
-//        getServer().getPluginManager().registerEvents(
-//                new PlayerSessionListener(this, actionListener, mySQLInsert),
-//                this
-//        );
+
         getServer().getPluginManager().registerEvents(actionListener, this);
         this.eventListener();
         sessionListener.cancelAllTasks();
         // Start periodic task
-//        int interval = getConfig().getInt("database.insert_interval", 300); // Default 300 seconds
-//        new ActionRecorderTask(actionListener, mySQLInsert).runTaskTimer(this, interval * 20L, interval * 20L);
-        // --- Vault Economy Hook ---
-//        RegisteredServiceProvider<Economy> rsp =
-//                getServer().getServicesManager().getRegistration(Economy.class);
-//        if (rsp != null) {
-//            economy = rsp.getProvider();
-//            //getLogger().info("Hooked Vault Economy: " + economy.getName());
-//        } else {
-//            getLogger().warning("Vault Economy provider not found");
-//        }
-//
-//        // --- Essentials Hook ---
-//        Essentials = getConfig().getBoolean("Enable.Balance", false);
-//        if (Essentials){
-//        if (getServer().getPluginManager().isPluginEnabled("Essentials")) {
-//            essentials = (Essentials) getServer()
-//                    .getPluginManager()
-//                    .getPlugin("Essentials");
-//            getLogger().info("Hooked Essentials v" +
-//                    essentials.getDescription().getVersion());
-//        } else {
-//            getLogger().warning("Essentials not found or disabled");
-//        }}
-//        if (getConfig().getBoolean("Enable.Balance", false)) {
-//            try {
-//                essentialsHook = new EssentialsHook(this);
-//                getLogger().info("✔ 已透過反射 Hook Essentials v" +
-//                        essentialsHook.getClass().getPackage().getImplementationVersion());
-//            } catch (ClassNotFoundException e) {
-//                getLogger().info("Essentials 不存在，跳過經濟整合");
-//            } catch (Exception e) {
-//                getLogger().warning("Essentials Hook 失敗：" + e.getMessage());
-//            }
-//        }
 
         // AFK 功能同理，只在 essentialsHook != null 時，註冊 onEssentialsAFK
             if (getConfig().getBoolean("Enable.AFK", false) && essentialsHook != null) {
@@ -109,16 +71,6 @@ public final class Logplayeraction extends JavaPlugin {
 
                 getLogger().info("✔ 已註冊 AFK 計數監聽器");
             }
-
-//        getServer().getPluginManager().registerEvents(
-//                new PlayerChunkLoadListener(this),
-//                this
-//        );
-
-
-        // Register events
-
-        //getServer().getPluginManager().registerEvents(actionListener, this);
            }
 
     @Override

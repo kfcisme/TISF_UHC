@@ -30,14 +30,7 @@ public class PlayerChunkLoadListener implements Listener {
         plugin.getLogger().info("Server view-distance = " + viewDistance
                 + ", theoretical chunk count per load = " + theoreticalChunkCount);
 
-        // Schedule reset task every insert_interval seconds
-//        int intervalSeconds = plugin.getConfig().getInt("database.insert_interval", 3600);
-//        new BukkitRunnable() {
-//            @Override
-//            public void run() {
-//                resetChunkLoadCounts();
-//            }
-//        }.runTaskTimer(plugin, intervalSeconds * 20L, intervalSeconds * 20L);
+
     }
 
     @EventHandler
@@ -66,11 +59,7 @@ public class PlayerChunkLoadListener implements Listener {
         // Log the counters before resetting
         for (Map.Entry<UUID, Integer> entry : chunkLoadCounts.entrySet()) {
             Player player = Bukkit.getPlayer(entry.getKey());
-//            if (player != null) {
-//                Bukkit.getLogger().info("Player " + player.getName()
-//                        + " total chunk crosses this interval = " + entry.getValue()
-//                        + ", view-distance = " + viewDistance
-//                        + ", theoretical chunk count = " + theoreticalChunkCount);
+
 //            }
         }
         chunkLoadCounts.remove(playerId);

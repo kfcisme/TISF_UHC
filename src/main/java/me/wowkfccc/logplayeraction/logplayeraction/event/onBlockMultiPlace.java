@@ -17,11 +17,6 @@ public class onBlockMultiPlace implements Listener {
 
     public onBlockMultiPlace(Logplayeraction plugin) {
         this.plugin = plugin;
-//        int timer = plugin.getConfig().getInt("database.insert_interval", 3600);
-//        new BukkitRunnable() {
-//            @Override
-//            public void run() { resetCounters(); }
-//        }.runTaskTimer(plugin, 0L, timer * 20L);
     }
 
     @EventHandler

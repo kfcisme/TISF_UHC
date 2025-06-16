@@ -24,15 +24,6 @@ public class onPlayerDeath implements Listener {
 
     public onPlayerDeath(Logplayeraction plugin) {
         this.plugin = plugin;
-
-        // Schedule a task to reset counters periodically
-//        int timer = plugin.getConfig().getInt("database.insert_interval", 3600); // Default to 1 hour
-//        new BukkitRunnable() {
-//            @Override
-//            public void run() {
-//                resetCounters();
-//            }
-//        }.runTaskTimer(plugin, 0L, timer * 20L);
     }
 
     @EventHandler
@@ -57,7 +48,6 @@ public class onPlayerDeath implements Listener {
         for (Map.Entry<UUID, Integer> entry : playerPlayerDeathCount.entrySet()) {
             Player player = Bukkit.getPlayer(entry.getKey());
             if (player != null) {
-         //       Bukkit.getLogger().info("Player " + player.getName() + " total PlayerDeath count: " + entry.getValue());
             }
         }
 

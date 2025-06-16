@@ -20,15 +20,6 @@ public class onPlayerExpChange implements Listener {
 
     public onPlayerExpChange(Logplayeraction plugin) {
         this.plugin = plugin;
-
-        // Schedule a task to reset counters periodically
-//        int timer = plugin.getConfig().getInt("database.insert_interval", 3600); // Default to 1 hour
-//        new BukkitRunnable() {
-//            @Override
-//            public void run() {
-//                resetCounters();
-//            }
-//        }.runTaskTimer(plugin, 0L, timer * 20L);
     }
 
     @EventHandler
@@ -39,8 +30,6 @@ public class onPlayerExpChange implements Listener {
         // Increment the player's block break counter
         playerPlayerExpChangeCount.put(playerId, playerPlayerExpChangeCount.getOrDefault(playerId, 0) + 1);
 
-        // Log the current block break count for the player
-       // Bukkit.getLogger().info("Player " + player.getName() + " PlayerExpChange count: " + playerPlayerExpChangeCount.get(playerId));
     }
 
     public static int SendInsertData(UUID playerId){
