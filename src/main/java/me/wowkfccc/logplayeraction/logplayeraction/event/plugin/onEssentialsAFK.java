@@ -73,8 +73,8 @@ public class onEssentialsAFK implements Listener {
         } else {
             // 離開 AFK：計算差距時間並累加
             if (afkStartTime.containsKey(uuid)) {
-                long start = afkStartTime.remove(uuid);
-                long durationSec = (System.currentTimeMillis() - start) / 1000;
+                int start = afkStartTime.remove(uuid);
+                int durationSec = ((int)System.currentTimeMillis() - start) / 1000;
 //                afkCounts.put(uuid, (afkCounts.getOrDefault(uuid, 0L) + durationSec));
 //                int current = ;
                 afkCounts.put(uuid,afkCounts.getOrDefault(uuid, 0));
