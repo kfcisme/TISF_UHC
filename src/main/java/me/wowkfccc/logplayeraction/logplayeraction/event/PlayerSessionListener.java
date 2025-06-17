@@ -91,7 +91,13 @@ public class PlayerSessionListener implements Listener {
                     if (plugin.isDatabaseEnable()
                             && counts.pickup + counts.blockBreak + counts.chat
                             + counts.blockDamage + counts.blockPlace
-                            + counts.bucketFill + counts.bucketEmpty > 0) {
+                            + counts.bucketFill + counts.bucketEmpty + counts.afktime + counts.redstoneCounts
+                            + counts.chunkLoadCounts + counts.cmdPre + counts.craft  + counts.death
+                            + counts.dmgByEntity + counts.expChange + counts.explosion + counts.furnaceExtract + counts.interact
+                            + counts.cmdSend + counts.invClose + counts.invOpen + counts.itemDrop + counts.levelChange
+                            + counts.multiPlace + counts.playerDeath + counts.quit + counts.respawn
+                            + counts.teleport + counts.tntPrime> 0) {
+
 
                         mySQLInsert.insertEventCounts(id, counts);
                     }
