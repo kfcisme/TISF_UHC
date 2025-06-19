@@ -61,9 +61,10 @@ public final class Logplayeraction extends JavaPlugin {
         this.eventListener();
         sessionListener.cancelAllTasks();
         // Start periodic task
-
+        boolean hasEssentials = getServer().getPluginManager().isPluginEnabled("Essentials");
+        getLogger().info("Essentials 是否啟用: " + hasEssentials);
         // AFK 功能同理，只在 essentialsHook != null 時，註冊 onEssentialsAFK
-            if (getConfig().getBoolean("Enable.AFK", false) && essentialsHook != null) {
+            if (getConfig().getBoolean("Enable.AFK", false) && hasEssentials) {
                 getServer().getPluginManager().registerEvents(
                         new onEssentialsAFK(this, essentialsHook),
                         this

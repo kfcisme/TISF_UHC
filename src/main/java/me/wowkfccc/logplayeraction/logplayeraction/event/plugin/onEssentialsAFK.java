@@ -25,43 +25,11 @@ public class onEssentialsAFK implements Listener {
 
 
     public onEssentialsAFK(Logplayeraction plugin, EssentialsHook essentialsHook) {
-//        this.plugin = plugin;
-//        int timer = plugin.getConfig().getInt("database.insert_interval", 3600);
-//        // 排程重置計數
-//        new org.bukkit.scheduler.BukkitRunnable() {
-//            @Override
-//            public void run() {
-//                afkCounts.forEach((uuid, count) -> {
-//                    org.bukkit.entity.Player p = org.bukkit.Bukkit.getPlayer(uuid);
-//                    if (p != null) {
-//                        plugin.getLogger().info(
-//                                "Player " + p.getName() + " total AFK count: " + count
-//                        );
-//                    }
-//                });
-//                afkCounts.clear();
-//            }
-//        }.runTaskTimer(plugin, 0L, timer * 20L);
         this.plugin = plugin;
     }
 
     @EventHandler
     public void onAfkStatusChange(AfkStatusChangeEvent event) {
-//        UUID playerId = event.getAffected().getBase().getUniqueId();
-//        afkCounts.put(playerId, afkCounts.getOrDefault(playerId, 0) + 1);
-//
-//        Object essEcon = plugin.getEssEconomy();
-//        if (essEcon != null) {
-//            try {
-//                // com.earth2me.essentials.api.Economy#take(String,double)
-//                Method take = essEcon.getClass()
-//                        .getMethod("take", String.class, double.class);
-//                String name = event.getAffected().getBase().getName();
-//                take.invoke(essEcon, name, 1.0);
-//            } catch (Exception ex) {
-//                plugin.getLogger().warning("扣款失敗：" + ex.getMessage());
-//            }
-//        }
         Player player = event.getAffected().getBase();
         UUID uuid = player.getUniqueId();
         boolean isAfk = event.getValue();
@@ -69,7 +37,7 @@ public class onEssentialsAFK implements Listener {
         if (isAfk) {
             // 進入 AFK：記錄當下時間
             afkStartTime.put(uuid, (int)System.currentTimeMillis());
-            plugin.getLogger().info(player.getName() + " 進入 AFK");
+//            plugin.getLogger().info(player.getName() + " 進入 AFK");
         } else {
             // 離開 AFK：計算差距時間並累加
             if (afkStartTime.containsKey(uuid)) {
@@ -78,7 +46,7 @@ public class onEssentialsAFK implements Listener {
 //                afkCounts.put(uuid, (afkCounts.getOrDefault(uuid, 0L) + durationSec));
 //                int current = ;
                 afkCounts.put(uuid,afkCounts.getOrDefault(uuid, 0));
-                plugin.getLogger().info(player.getName() + " 離開 AFK，時長：" + durationSec + " 秒");
+//                plugin.getLogger().info(player.getName() + " 離開 AFK，時長：" + durationSec + " 秒");
             }
         }
     }
@@ -95,7 +63,7 @@ public class onEssentialsAFK implements Listener {
         // Log the counters before resetting
         for (Map.Entry<UUID, Integer> entry : afkTotalSeconds.entrySet()) {
             if (player != null) {
-                Bukkit.getLogger().info("Player " + player.getName() + " total chat time: " + entry.getValue() + " seconds.");
+//                Bukkit.getLogger().info("Player " + player.getName() + " total chat time: " + entry.getValue() + " seconds.");
             }
         }
 

@@ -45,6 +45,7 @@ public class PlayerActionListener implements Listener {
     public int chunkLoadCounts = 0;
     public int redstoneCounts = 0;
     public int afktime = 0;
+//    public int blockBreak = 0;
 
 //
     public PlayerActionListener(Logplayeraction plugin) {
@@ -85,7 +86,6 @@ public class PlayerActionListener implements Listener {
                 chunkLoadCounts = PlayerChunkLoadListener.SendInsertData(playerId),
                 redstoneCounts = onRedstoneTracker.SendInsertData(playerId),
                 afktime = onEssentialsAFK.SendInsertData(playerId)
-
         );
 
 
@@ -122,6 +122,7 @@ public class PlayerActionListener implements Listener {
         PlayerChunkLoadListener.resetChunkLoadCounts(playerId);
         onRedstoneTracker.resetCounters(playerId);
         onEssentialsAFK.resetCounters(playerId);
+        onBlockBreak.resetCounters(playerId);
     }
 
     public static class EventCounts {
