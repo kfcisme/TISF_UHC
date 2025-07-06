@@ -66,7 +66,7 @@ public final class Logplayeraction extends JavaPlugin {
         // AFK 功能同理，只在 essentialsHook != null 時，註冊 onEssentialsAFK
             if (getConfig().getBoolean("Enable.AFK", false) && hasEssentials) {
                 getServer().getPluginManager().registerEvents(
-                        new onEssentialsAFK(this, essentialsHook),
+                        new onEssentialsAFK(this),
                         this
                 );
 

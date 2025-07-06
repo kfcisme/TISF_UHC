@@ -1,74 +1,77 @@
 package me.wowkfccc.logplayeraction.logplayeraction.event.plugin;
 
-import me.wowkfccc.logplayeraction.logplayeraction.event.plugin.API.EssentialsHook;
 import net.ess3.api.events.AfkStatusChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import me.wowkfccc.logplayeraction.logplayeraction.Logplayeraction;
-import com.earth2me.essentials.Essentials;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class onEssentialsAFK implements Listener {
     private final Logplayeraction plugin;
-    private final Map<UUID, Integer> afkCounts = new HashMap<>();
-    // 記錄玩家進入 AFK 的時間戳（毫秒）
-    private final Map<UUID, Integer> afkStartTime = new HashMap<>();
 
-    // 累積每位玩家的 AFK 時數（秒）
-    public static final Map<UUID, Integer> afkTotalSeconds = new HashMap<>();
+    // 用 int (秒) 記錄進入 AFK 的時間戳
+    public static final Map<UUID, Integer> afkStartSec = new HashMap<>();
 
+    // 累計所有 AFK 時長（秒）
+    public static final Map<UUID, Integer> afkTotalSec = new HashMap<>();
 
-    public onEssentialsAFK(Logplayeraction plugin, EssentialsHook essentialsHook) {
+    public onEssentialsAFK(Logplayeraction plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
     public void onAfkStatusChange(AfkStatusChangeEvent event) {
-        Player player = event.getAffected().getBase();
-        UUID uuid = player.getUniqueId();
+        UUID uuid = event.getAffected().getBase().getUniqueId();
         boolean isAfk = event.getValue();
 
         if (isAfk) {
-            // 進入 AFK：記錄當下時間
-            afkStartTime.put(uuid, (int)System.currentTimeMillis());
-//            plugin.getLogger().info(player.getName() + " 進入 AFK");
+            // 進入 AFK：記錄當前秒級時間戳
+            int nowSec = (int)(System.currentTimeMillis() / 1000);
+            afkStartSec.put(uuid, nowSec);
+
         } else {
-            // 離開 AFK：計算差距時間並累加
-            if (afkStartTime.containsKey(uuid)) {
-                int start = afkStartTime.remove(uuid);
-                int durationSec = ((int)System.currentTimeMillis() - start) / 1000;
-//                afkCounts.put(uuid, (afkCounts.getOrDefault(uuid, 0L) + durationSec));
-//                int current = ;
-                afkCounts.put(uuid,afkCounts.getOrDefault(uuid, 0));
-//                plugin.getLogger().info(player.getName() + " 離開 AFK，時長：" + durationSec + " 秒");
+            // 離開 AFK：計算這段 AFK 持續秒數並累加
+            Integer start = afkStartSec.remove(uuid);
+            if (start != null) {
+                int nowSec = (int)(System.currentTimeMillis() / 1000);
+                int duration = nowSec - start;
+                int prev = afkTotalSec.getOrDefault(uuid, 0);
+                afkTotalSec.put(uuid, prev + duration);
+                plugin.getLogger().info(
+                        event.getAffected().getBase().getName()
+                                + " AFK " + duration + " 秒，累計 " + (prev + duration) + " 秒。"
+                );
             }
         }
     }
-    public int getAfkTotalSeconds(UUID uuid) {
-        return afkTotalSeconds.getOrDefault(uuid, 0);
+
+    /**
+     * 取得目前總 AFK 秒數。
+     * 如果玩家正處於 AFK 中，會加上「從進入 AFK 到現在」的秒數。
+     */
+    public static int SendInsertData(UUID uuid) {
+        int total = afkTotalSec.getOrDefault(uuid, 0);
+        Integer start = afkStartSec.get(uuid);
+        if (start != null) {
+            int nowSec = (int)(System.currentTimeMillis() / 1000);
+            total += (nowSec - start);
+        }
+        return total;
     }
 
-    public static int SendInsertData(UUID playerId){
-        return afkTotalSeconds.getOrDefault(playerId, 0);
+    // 如果需要往資料庫 insert 時呼叫
+    public static int t(UUID playerId) {
+        return afkTotalSec.getOrDefault(playerId, 0);
     }
 
+    // 重設某玩家的 AFK 計數
     public static void resetCounters(UUID playerId) {
-        Player player = Bukkit.getPlayer(playerId);
-        // Log the counters before resetting
-        for (Map.Entry<UUID, Integer> entry : afkTotalSeconds.entrySet()) {
-            if (player != null) {
-//                Bukkit.getLogger().info("Player " + player.getName() + " total chat time: " + entry.getValue() + " seconds.");
-            }
-        }
-
-        // Clear the counters
-        afkTotalSeconds.remove(playerId);
-        //Bukkit.getLogger().info("All player chat counters have been reset.");
+        afkTotalSec.remove(playerId);
+        afkStartSec.remove(playerId);
     }
 }
