@@ -15,7 +15,6 @@ me\wowkfccc\logplayeraction\logplayeraction\mySQLConnect.class
 me\wowkfccc\logplayeraction\logplayeraction\mySQLInsertData.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onPlayerBucketEmpty.class
 me\wowkfccc\logplayeraction\logplayeraction\commandmanager.class
-me\wowkfccc\logplayeraction\logplayeraction\event\plugin\onPlayerAFK.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onPlayerExpChange.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onPlayerInteract.class
 me\wowkfccc\logplayeraction\logplayeraction\event\onPlayerDropItem.class
