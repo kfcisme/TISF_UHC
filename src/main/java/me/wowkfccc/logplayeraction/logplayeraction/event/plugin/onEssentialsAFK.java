@@ -33,6 +33,8 @@ public class onEssentialsAFK implements Listener {
             // 進入 AFK：記錄當前秒級時間戳
             int nowSec = (int)(System.currentTimeMillis() / 1000);
             afkStartSec.put(uuid, nowSec);
+//            Bukkit.getLogger().info("Player " + event.getAffected().getBase().getName() + " enter AFK status" );
+
 
         } else {
             // 離開 AFK：計算這段 AFK 持續秒數並累加
