@@ -1,0 +1,6 @@
+name: TISF_UHC
+version: '1.0.2'
+main: mw.wowkfccc.TISF.tISF_UHC.TISF_UHC
+api-version: '1.18'
+depend:
+  - UhcCore
