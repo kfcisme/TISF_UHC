@@ -1,7 +1,9 @@
 package mw.wowkfccc.TISF.tISF_UHC;
 
+import com.gmail.val59000mc.UhcCore;
 import com.gmail.val59000mc.exceptions.UhcPlayerDoesNotExistException;
 import com.gmail.val59000mc.exceptions.UhcPlayerNotOnlineException;
+import com.gmail.val59000mc.game.GameManager;
 import com.gmail.val59000mc.players.PlayerManager;
 import com.gmail.val59000mc.players.TeamManager;
 import com.gmail.val59000mc.players.UhcPlayer;
@@ -33,13 +35,9 @@ public class PlayerDeathListener implements Listener {
         this.plugin = plugin;
         this.reviveManager = reviveManager;
 
-        ServicesManager sm = plugin.getServer().getServicesManager();
-        this.playerManager = sm.getRegistration(PlayerManager.class).getProvider();
-        this.teamManager   = sm.getRegistration(TeamManager.class).getProvider();
-
-        if (playerManager == null || teamManager == null) {
-            plugin.getLogger().severe("無法取得 UhcCore 的 PlayerManager/TeamManager，請檢查 plugin.yml 是否有 depend: [UhcCore]");
-        }
+        GameManager gm = GameManager.getGameManager();
+        this.playerManager = gm.getPlayerManager();
+        this.teamManager   = gm.getTeamManager();
     }
 
     @EventHandler

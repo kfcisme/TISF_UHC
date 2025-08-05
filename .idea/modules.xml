@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/TISF_UHC/TISF_UHC.iml" filepath="$PROJECT_DIR$/TISF_UHC/TISF_UHC.iml" />
       <module fileurl="file://$PROJECT_DIR$/logplayeraction.iml" filepath="$PROJECT_DIR$/logplayeraction.iml" />
     </modules>
   </component>
